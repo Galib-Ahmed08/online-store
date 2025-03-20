@@ -93,3 +93,13 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.contact-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.contact-container p {
+    font-size: 18px;
+    margin: 10px 0;
+}
