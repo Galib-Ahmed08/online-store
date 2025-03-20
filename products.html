@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - Online Store</title>
+    <title>Our Products</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Naomi - ID: 12345 -->
+    <!-- Galib Ahmed - ID: 2221062 -->
     <header>
         <nav>
             <ul>
@@ -18,19 +18,30 @@
         </nav>
     </header>
 
-    <main class="product-grid">
-        <div class="product-card">
-            <img src="images/product1.jpg" alt="Product 1">
-            <p>Product 1 - $10</p>
-        </div>
-        <div class="product-card">
-            <img src="images/product2.jpg" alt="Product 2">
-            <p>Product 2 - $15</p>
+    <main class="products">
+        <h1>Our Products</h1>
+        <div class="product-grid">
+            <div class="product">
+                <img src="images/product1.jpg" alt="Nike Hyperchase">
+                <h3>Nike Hyperchase</h3>
+                <p>A stylish and comfortable sneaker for everyday use.</p>
+                <p><strong>Price: $100</strong></p>
+                <button onclick="addToCart('Nike Hyperchase', 100)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/product2.jpg" alt="Nike Legend Essential 2">
+                <h3>Nike Legend Essential 2</h3>
+                <p>Perfect for training and workouts with superior comfort.</p>
+                <p><strong>Price: $130</strong></p>
+                <button onclick="addToCart('Nike Legend Essential 2', 130)">Add to Cart</button>
+            </div>
         </div>
     </main>
 
     <footer>
         <p>&copy; 2025 Online Store</p>
     </footer>
+    
+    <script src="script.js"></script>
 </body>
 </html>
