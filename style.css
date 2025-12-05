@@ -62,9 +62,17 @@ nav ul li a:hover {
     padding: 20px;
 }
 
+/* Cart Summary Button Styling */
+.cart-summary {
+    text-align: right;
+    margin-bottom: 20px;
+    padding-right: 20px;
+}
+
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    /* Changed to 3 columns for the extra products */
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
 }
@@ -74,11 +82,16 @@ nav ul li a:hover {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center product content */
 }
 
 .product img {
     width: 100%;
+    /* Added a fixed height to product images for uniform grid */
+    height: 200px; 
+    object-fit: cover; 
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 button {
@@ -88,6 +101,7 @@ button {
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
@@ -114,4 +128,86 @@ footer {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* --- Cart Modal Styles --- */
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* The Close Button */
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Cart List Styling */
+#cart-items {
+    list-style: none;
+    padding: 0;
+}
+
+#cart-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+#cart-items li:last-child {
+    border-bottom: none;
+}
+
+.remove-button {
+    background-color: #dc3545; /* Red for removal */
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.remove-button:hover {
+    background-color: #bd2130;
+}
+
+.checkout-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #28a745;
+}
+
+.checkout-button:hover {
+    background-color: #1e7e34;
 }
