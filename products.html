@@ -13,22 +13,22 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="products.html">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
+
+                <form class="nav-search-form">
+                    <input 
+                        type="text" 
+                        id="product-search" 
+                        placeholder="Search products..." 
+                        onkeyup="filterProducts()"
+                    >
+                    <button type="button">Search</button>
+                </form>
             </ul>
         </nav>
     </header>
 
     <main class="products">
         <h1>Our Products</h1>
-
-        <div class="search-container" style="margin-bottom: 20px;">
-            <input 
-                type="text" 
-                id="product-search" 
-                placeholder="Search by shoe name..." 
-                onkeyup="filterProducts()"
-                style="padding: 10px; width: 60%; max-width: 400px; border: 1px solid #ccc; border-radius: 5px;"
-            >
-        </div>
         
         <div class="cart-summary">
             <button onclick="viewCart()">View Cart (<span id="cart-count">0</span>)</button>
@@ -97,3 +97,28 @@
                     
                     <label for="card">Card Number:</label>
                     <input type="text" id="card" required maxlength="16" placeholder="XXXX XXXX XXXX XXXX" style="width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <div>
+                            <label for="expiry">Expiry (MM/YY):</label>
+                            <input type="text" id="expiry" required maxlength="5" placeholder="MM/YY" style="padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; width: 80%;">
+                        </div>
+                        <div>
+                            <label for="cvv">CVV:</label>
+                            <input type="text" id="cvv" required maxlength="3" placeholder="CVV" style="padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; width: 80%;">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="checkout-button" style="background-color: #28a745;">Pay Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Rookie Shoes 2025</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
