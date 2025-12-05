@@ -39,6 +39,7 @@ function filterProducts() {
     }
 }
 
+// Checks for a search query passed from another page (Home or Contact)
 function checkURLForSearchQuery() {
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('query');
@@ -46,8 +47,11 @@ function checkURLForSearchQuery() {
     if (searchQuery) {
         const searchInput = document.getElementById('product-search');
         if (searchInput) {
+            // 1. Put the search term into the products page search box
             searchInput.value = searchQuery;
+            // 2. Automatically run the filter
             filterProducts();
+            // Clear the query from the URL bar for a cleaner look
             window.history.replaceState({}, document.title, window.location.pathname);
         }
     }
@@ -90,6 +94,7 @@ function renderCart() {
     const cartTotalElement = document.getElementById('cart-total');
     let total = 0;
 
+    // Reset payment section whenever cart is rendered/updated
     const paymentSection = document.getElementById('payment-section');
     const checkoutBtn = document.getElementById('checkout-btn');
     if (paymentSection && checkoutBtn) {
@@ -105,6 +110,7 @@ function renderCart() {
         } else {
             cart.forEach(item => {
                 const listItem = document.createElement('li');
+                // Currency is BDT
                 listItem.innerHTML = `
                     <span>${item.name} - BDT ${item.price.toFixed(2)}</span>
                     <button class="remove-button" onclick="removeFromCart(${item.id})">Remove</button>
@@ -135,6 +141,7 @@ function closeCart() {
     }
 }
 
+// Close the modal if the user clicks anywhere outside of it
 window.onclick = function(event) {
     const modal = document.getElementById('cart-modal');
     if (modal && event.target == modal) {
@@ -142,7 +149,7 @@ window.onclick = function(event) {
     }
 }
 
-// --- Payment Gateway Functions (Updated) ---
+// --- Payment Gateway Functions (MFS and Card) ---
 
 // Toggles input fields based on payment method selection
 function togglePaymentFields() {
@@ -153,20 +160,20 @@ function togglePaymentFields() {
     if (method === 'card') {
         cardFields.style.display = 'block';
         mfsFields.style.display = 'none';
-        // Ensure card fields are required when selected
+        // Set Card fields as required
         document.getElementById('card').required = true;
         document.getElementById('name').required = true;
         document.getElementById('expiry').required = true;
         document.getElementById('cvv').required = true;
-        // MFS not required
+        // Set MFS field as not required
         document.getElementById('mfs-number').required = false;
 
     } else {
         cardFields.style.display = 'none';
         mfsFields.style.display = 'block';
-        // Ensure MFS number is required when selected
+        // Set MFS number as required
         document.getElementById('mfs-number').required = true;
-        // Card fields not required
+        // Set Card fields as not required
         document.getElementById('card').required = false;
         document.getElementById('name').required = false;
         document.getElementById('expiry').required = false;
@@ -200,6 +207,7 @@ function processPayment(event) {
 
     if (method === 'card') {
         const cardNum = document.getElementById('card').value;
+        // Basic Card validation: check for 16 digits
         if (cardNum.length === 16 && !isNaN(cardNum) && cardNum.trim() !== '') {
             paymentSuccess = true;
         } else {
@@ -209,7 +217,7 @@ function processPayment(event) {
         const mfsNumber = document.getElementById('mfs-number').value;
         const mfsName = document.getElementById('payment-method').options[document.getElementById('payment-method').selectedIndex].text;
         
-        // Basic MFS number validation (11 digits, starts with '01')
+        // MFS number validation: check for 11 digits and start with '01'
         if (mfsNumber.length === 11 && !isNaN(mfsNumber) && mfsNumber.startsWith('01')) {
             alert(`Simulating MFS payment via ${mfsName} (Number: ${mfsNumber}). A pin verification step is simulated.`);
             paymentSuccess = true;
@@ -219,8 +227,10 @@ function processPayment(event) {
     }
 
     if (paymentSuccess) {
+        // Final confirmation message using BDT
         alert(`Payment successful via ${method.toUpperCase()}! Your total of BDT ${totalAmount} has been processed. Your order is confirmed!`);
         
+        // Clear cart and close modal
         cart = [];
         updateCartCount();
         closeCart();
@@ -234,6 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
         paymentForm.addEventListener('submit', processPayment);
     }
     
+    // Check for search query on page load
     checkURLForSearchQuery();
+    
     updateCartCount();
 });
