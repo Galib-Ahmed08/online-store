@@ -11,12 +11,18 @@ function sayHi() {
     alert('Thank you for visiting!');
 }
 
-// --- Search Filter Function (Unchanged) ---
+// --- SEARCH FILTER AND INITIAL SEARCH CHECK ---
 
 function filterProducts() {
     const input = document.getElementById('product-search');
+    // Exit if not on products page or input doesn't exist
+    if (!input) return; 
+
     const filter = input.value.toUpperCase(); 
     const productGrid = document.getElementById('product-list');
+    // Ensure productGrid exists before trying to get its children
+    if (!productGrid) return;
+    
     const products = productGrid.getElementsByClassName('product'); 
 
     for (let i = 0; i < products.length; i++) {
@@ -31,6 +37,24 @@ function filterProducts() {
                 products[i].style.display = "none"; 
             }
         }       
+    }
+}
+
+// Function to check for and apply search query from the URL (for homepage redirect)
+function checkURLForSearchQuery() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('query');
+    
+    if (searchQuery) {
+        const searchInput = document.getElementById('product-search');
+        if (searchInput) {
+            // 1. Put the search term into the products page search box
+            searchInput.value = searchQuery;
+            // 2. Automatically run the filter
+            filterProducts();
+            // Clear the query from the URL bar for a cleaner look
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
     }
 }
 
@@ -51,7 +75,7 @@ function addToCart(productName, price) {
         id: Date.now() 
     };
     cart.push(product);
-    // ALERT MESSAGE UPDATED
+    // Currency changed to BDT
     alert(productName + " has been added to your cart for BDT " + price + ".");
     updateCartCount();
 }
@@ -88,7 +112,7 @@ function renderCart() {
         } else {
             cart.forEach(item => {
                 const listItem = document.createElement('li');
-                // LIST ITEM DISPLAY UPDATED
+                // Currency changed to BDT
                 listItem.innerHTML = `
                     <span>${item.name} - BDT ${item.price.toFixed(2)}</span>
                     <button class="remove-button" onclick="removeFromCart(${item.id})">Remove</button>
@@ -100,7 +124,6 @@ function renderCart() {
     }
 
     if (cartTotalElement) {
-        // TOTAL DISPLAY UPDATED
         cartTotalElement.textContent = total.toFixed(2);
     }
 }
@@ -156,7 +179,7 @@ function processPayment(event) {
         return;
     }
     
-    // FINAL ALERT MESSAGE UPDATED
+    // Currency changed to BDT
     alert(`Payment successful! Your total of BDT ${totalAmount} has been processed. Your order is confirmed!`);
     
     cart = [];
@@ -170,5 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (paymentForm) {
         paymentForm.addEventListener('submit', processPayment);
     }
-    updateCartCount(); // Initial count update
+    
+    // Check for search query when any page loads
+    checkURLForSearchQuery();
+    
+    updateCartCount();
 });
