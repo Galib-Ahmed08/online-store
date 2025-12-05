@@ -20,7 +20,7 @@ function filterProducts() {
 
     const filter = input.value.toUpperCase(); 
     const productGrid = document.getElementById('product-list');
-    // Ensure productGrid exists before trying to get its children
+    
     if (!productGrid) return;
     
     const products = productGrid.getElementsByClassName('product'); 
