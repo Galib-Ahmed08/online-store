@@ -14,9 +14,7 @@ function sayHi() {
 // --- SEARCH FILTER AND INITIAL SEARCH CHECK ---
 
 function filterProducts() {
-    // Get the input from the product search bar (which is now in the nav on products.html)
     const input = document.getElementById('product-search');
-    // Exit if not on products page or input doesn't exist
     if (!input) return; 
 
     const filter = input.value.toUpperCase(); 
@@ -41,7 +39,6 @@ function filterProducts() {
     }
 }
 
-// Function to check for and apply search query from the URL (for homepage redirect)
 function checkURLForSearchQuery() {
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('query');
@@ -49,11 +46,8 @@ function checkURLForSearchQuery() {
     if (searchQuery) {
         const searchInput = document.getElementById('product-search');
         if (searchInput) {
-            // 1. Put the search term into the products page search box
             searchInput.value = searchQuery;
-            // 2. Automatically run the filter
             filterProducts();
-            // Clear the query from the URL bar for a cleaner look
             window.history.replaceState({}, document.title, window.location.pathname);
         }
     }
@@ -76,7 +70,6 @@ function addToCart(productName, price) {
         id: Date.now() 
     };
     cart.push(product);
-    // Currency changed to BDT
     alert(productName + " has been added to your cart for BDT " + price + ".");
     updateCartCount();
 }
@@ -97,7 +90,6 @@ function renderCart() {
     const cartTotalElement = document.getElementById('cart-total');
     let total = 0;
 
-    // Reset payment section whenever cart is rendered/updated
     const paymentSection = document.getElementById('payment-section');
     const checkoutBtn = document.getElementById('checkout-btn');
     if (paymentSection && checkoutBtn) {
@@ -113,7 +105,6 @@ function renderCart() {
         } else {
             cart.forEach(item => {
                 const listItem = document.createElement('li');
-                // Currency changed to BDT
                 listItem.innerHTML = `
                     <span>${item.name} - BDT ${item.price.toFixed(2)}</span>
                     <button class="remove-button" onclick="removeFromCart(${item.id})">Remove</button>
@@ -144,7 +135,6 @@ function closeCart() {
     }
 }
 
-// Close the modal if the user clicks anywhere outside of it
 window.onclick = function(event) {
     const modal = document.getElementById('cart-modal');
     if (modal && event.target == modal) {
@@ -152,7 +142,37 @@ window.onclick = function(event) {
     }
 }
 
-// --- Payment Gateway Functions ---
+// --- Payment Gateway Functions (Updated) ---
+
+// Toggles input fields based on payment method selection
+function togglePaymentFields() {
+    const method = document.getElementById('payment-method').value;
+    const cardFields = document.getElementById('card-fields');
+    const mfsFields = document.getElementById('mfs-fields');
+
+    if (method === 'card') {
+        cardFields.style.display = 'block';
+        mfsFields.style.display = 'none';
+        // Ensure card fields are required when selected
+        document.getElementById('card').required = true;
+        document.getElementById('name').required = true;
+        document.getElementById('expiry').required = true;
+        document.getElementById('cvv').required = true;
+        // MFS not required
+        document.getElementById('mfs-number').required = false;
+
+    } else {
+        cardFields.style.display = 'none';
+        mfsFields.style.display = 'block';
+        // Ensure MFS number is required when selected
+        document.getElementById('mfs-number').required = true;
+        // Card fields not required
+        document.getElementById('card').required = false;
+        document.getElementById('name').required = false;
+        document.getElementById('expiry').required = false;
+        document.getElementById('cvv').required = false;
+    }
+}
 
 function showPaymentForm() {
     const paymentSection = document.getElementById('payment-section');
@@ -166,6 +186,8 @@ function showPaymentForm() {
     if (paymentSection && checkoutBtn) {
         paymentSection.style.display = 'block';
         checkoutBtn.style.display = 'none';
+        // Initialize fields to the default state (Card)
+        togglePaymentFields(); 
     }
 }
 
@@ -173,19 +195,36 @@ function processPayment(event) {
     event.preventDefault(); 
     
     const totalAmount = document.getElementById('cart-total').textContent;
-    const cardNum = document.getElementById('card').value;
+    const method = document.getElementById('payment-method').value;
+    let paymentSuccess = false;
 
-    if (cardNum.length < 16) {
-        alert("Please enter a valid 16-digit card number.");
-        return;
+    if (method === 'card') {
+        const cardNum = document.getElementById('card').value;
+        if (cardNum.length === 16 && !isNaN(cardNum) && cardNum.trim() !== '') {
+            paymentSuccess = true;
+        } else {
+            alert("Please enter a valid 16-digit card number.");
+        }
+    } else {
+        const mfsNumber = document.getElementById('mfs-number').value;
+        const mfsName = document.getElementById('payment-method').options[document.getElementById('payment-method').selectedIndex].text;
+        
+        // Basic MFS number validation (11 digits, starts with '01')
+        if (mfsNumber.length === 11 && !isNaN(mfsNumber) && mfsNumber.startsWith('01')) {
+            alert(`Simulating MFS payment via ${mfsName} (Number: ${mfsNumber}). A pin verification step is simulated.`);
+            paymentSuccess = true;
+        } else {
+            alert(`Please enter a valid 11-digit MFS account number starting with '01' for ${mfsName}.`);
+        }
     }
-    
-    // Currency changed to BDT
-    alert(`Payment successful! Your total of BDT ${totalAmount} has been processed. Your order is confirmed!`);
-    
-    cart = [];
-    updateCartCount();
-    closeCart();
+
+    if (paymentSuccess) {
+        alert(`Payment successful via ${method.toUpperCase()}! Your total of BDT ${totalAmount} has been processed. Your order is confirmed!`);
+        
+        cart = [];
+        updateCartCount();
+        closeCart();
+    }
 }
 
 // Event listeners
@@ -195,8 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
         paymentForm.addEventListener('submit', processPayment);
     }
     
-    // Check for search query when any page loads
     checkURLForSearchQuery();
-    
     updateCartCount();
 });
