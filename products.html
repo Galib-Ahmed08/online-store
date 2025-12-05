@@ -37,7 +37,7 @@
         <div class="product-grid" id="product-list">
             <div class="product">
                 <img src="images/product1.jpg" alt="Nike Hyperchase">
-                <h3>Nike Hyperchase</h3>
+                <h3>Nike Hyperchase </h3>
                 <p>A stylish and comfortable sneaker for everyday use.</p>
                 <p><strong>Price: BDT 100</strong></p>
                 <button onclick="addToCart('Nike Hyperchase', 100)">Add to Cart</button>
@@ -92,24 +92,41 @@
             <div id="payment-section" style="display:none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
                 <h3>Payment Details</h3>
                 <form id="payment-form">
-                    <label for="name">Name on Card:</label>
-                    <input type="text" id="name" required style="width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+                    <label for="payment-method" style="display: block; margin-top: 10px;">Select Payment Method:</label>
+                    <select id="payment-method" onchange="togglePaymentFields()" style="padding: 10px; width: 100%; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="bkash">bKash</option>
+                        <option value="nagad">Nagad</option>
+                        <option value="rocket">Rocket</option>
+                    </select>
                     
-                    <label for="card">Card Number:</label>
-                    <input type="text" id="card" required maxlength="16" placeholder="XXXX XXXX XXXX XXXX" style="width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
-                    
-                    <div style="display: flex; gap: 10px;">
-                        <div>
-                            <label for="expiry">Expiry (MM/YY):</label>
-                            <input type="text" id="expiry" required maxlength="5" placeholder="MM/YY" style="padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; width: 80%;">
-                        </div>
-                        <div>
-                            <label for="cvv">CVV:</label>
-                            <input type="text" id="cvv" required maxlength="3" placeholder="CVV" style="padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; width: 80%;">
+                    <div id="card-fields">
+                        <label for="name">Name on Card:</label>
+                        <input type="text" id="name" required style="width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                        
+                        <label for="card">Card Number (16 Digits):</label>
+                        <input type="text" id="card" required maxlength="16" placeholder="XXXX XXXX XXXX XXXX" style="width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                        
+                        <div style="display: flex; gap: 10px;">
+                            <div>
+                                <label for="expiry">Expiry (MM/YY):</label>
+                                <input type="text" id="expiry" required maxlength="5" placeholder="MM/YY" style="padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; width: 80%;">
+                            </div>
+                            <div>
+                                <label for="cvv">CVV (3 Digits):</label>
+                                <input type="text" id="cvv" required maxlength="3" placeholder="CVV" style="padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; width: 80%;">
+                            </div>
                         </div>
                     </div>
+
+                    <div id="mfs-fields" style="display: none;">
+                        <label for="mfs-number">MFS Account Number (11 Digits):</label>
+                        <input type="text" id="mfs-number" maxlength="11" placeholder="01XXXXXXXXX" style="width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                        <p style="font-size: 0.9em; color: #666;">A verification code would be sent to this number in a real transaction.</p>
+                    </div>
                     
-                    <button type="submit" class="checkout-button" style="background-color: #28a745;">Pay Now</button>
+                    <button type="submit" class="checkout-button" style="background-color: #28a745; margin-top: 15px;">Pay Now</button>
                 </form>
             </div>
         </div>
