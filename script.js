@@ -11,10 +11,38 @@ function sayHi() {
     alert('Thank you for visiting!');
 }
 
-// --- Cart Logic Functions for products.html ---
+// --- NEW SEARCH FILTER FUNCTION ---
+
+function filterProducts() {
+    const input = document.getElementById('product-search');
+    // Convert input text to uppercase for case-insensitive search
+    const filter = input.value.toUpperCase(); 
+    // Get all product divs in the grid
+    const productGrid = document.getElementById('product-list');
+    const products = productGrid.getElementsByClassName('product'); 
+
+    // Loop through all product cards
+    for (let i = 0; i < products.length; i++) {
+        // Get the product name (h3 element)
+        const productName = products[i].querySelector('h3'); 
+        
+        if (productName) {
+            const txtValue = productName.textContent || productName.innerText;
+            
+            // Check if the product name includes the search text
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                products[i].style.display = ""; // Show product
+            } else {
+                products[i].style.display = "none"; // Hide product
+            }
+        }       
+    }
+}
+
+
+// --- Existing Cart Logic Functions (Unchanged) ---
 
 function updateCartCount() {
-    // This function looks for the cart-count span on products.html
     const cartCountElement = document.getElementById('cart-count');
     if (cartCountElement) {
         cartCountElement.textContent = cart.length;
@@ -25,7 +53,6 @@ function addToCart(productName, price) {
     const product = {
         name: productName,
         price: price,
-        // Use a timestamp or similar for a unique ID to allow multiple of the same item
         id: Date.now() 
     };
     cart.push(product);
@@ -34,13 +61,11 @@ function addToCart(productName, price) {
 }
 
 function removeFromCart(productId) {
-    // Find the index of the product to remove using its unique ID
     const index = cart.findIndex(item => item.id === productId);
 
     if (index > -1) {
         const removedItem = cart.splice(index, 1)[0];
         alert(removedItem.name + " has been removed from your cart.");
-        // Re-render the cart list and update the count
         renderCart();
         updateCartCount();
     }
@@ -51,7 +76,14 @@ function renderCart() {
     const cartTotalElement = document.getElementById('cart-total');
     let total = 0;
 
-    // Clear previous items
+    // Reset payment section whenever cart is rendered/updated
+    const paymentSection = document.getElementById('payment-section');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    if (paymentSection && checkoutBtn) {
+        paymentSection.style.display = 'none';
+        checkoutBtn.style.display = 'block';
+    }
+
     if (cartItemsList) {
         cartItemsList.innerHTML = ''; 
 
@@ -78,7 +110,7 @@ function renderCart() {
 function viewCart() {
     const modal = document.getElementById('cart-modal');
     if (modal) {
-        renderCart(); // Populate the cart content before showing
+        renderCart(); 
         modal.style.display = 'block';
     }
 }
@@ -98,5 +130,46 @@ window.onclick = function(event) {
     }
 }
 
-// Initial count update on products.html load
-document.addEventListener('DOMContentLoaded', updateCartCount);
+// --- Payment Gateway Functions ---
+
+function showPaymentForm() {
+    const paymentSection = document.getElementById('payment-section');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    
+    if (cart.length === 0) {
+        alert("Your cart is empty. Please add products to proceed to checkout.");
+        return;
+    }
+    
+    if (paymentSection && checkoutBtn) {
+        paymentSection.style.display = 'block';
+        checkoutBtn.style.display = 'none';
+    }
+}
+
+function processPayment(event) {
+    event.preventDefault(); 
+    
+    const totalAmount = document.getElementById('cart-total').textContent;
+    const cardNum = document.getElementById('card').value;
+
+    if (cardNum.length < 16) {
+        alert("Please enter a valid 16-digit card number.");
+        return;
+    }
+    
+    alert(`Payment successful! Your total of $${totalAmount} has been processed. Your order is confirmed!`);
+    
+    cart = [];
+    updateCartCount();
+    closeCart();
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const paymentForm = document.getElementById('payment-form');
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', processPayment);
+    }
+    updateCartCount(); // Initial count update
+});
