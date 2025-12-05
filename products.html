@@ -34,49 +34,51 @@
             <button onclick="viewCart()">View Cart (<span id="cart-count">0</span>)</button>
         </div>
         
-        <div class="product-grid" id="product-list"> <div class="product">
+        <div class="product-grid" id="product-list">
+            <div class="product">
                 <img src="images/product1.jpg" alt="Nike Hyperchase">
                 <h3>Nike Hyperchase</h3>
                 <p>A stylish and comfortable sneaker for everyday use.</p>
-                <p><strong>Price: $100</strong></p>
+                <p><strong>Price: BDT 100</strong></p>
                 <button onclick="addToCart('Nike Hyperchase', 100)">Add to Cart</button>
             </div>
             <div class="product">
                 <img src="images/product2.jpg" alt="Nike Legend Essential 2">
                 <h3>Nike Legend Essential 2</h3>
                 <p>Perfect for training and workouts with superior comfort.</p>
-                <p><strong>Price: $130</strong></p>
+                <p><strong>Price: BDT 130</strong></p>
                 <button onclick="addToCart('Nike Legend Essential 2', 130)">Add to Cart</button>
             </div>
+
             <div class="product">
                 <img src="images/product3.jpg" alt="Adidas Ultraboost 22"> 
                 <h3>Adidas Ultraboost 22</h3>
                 <p>Incredible energy return for a cushioned and responsive ride.</p>
-                <p><strong>Price: $180</strong></p>
+                <p><strong>Price: BDT 180</strong></p>
                 <button onclick="addToCart('Adidas Ultraboost 22', 180)">Add to Cart</button>
             </div>
             <div class="product">
                 <img src="images/product4.jpg" alt="Puma Clyde All-Pro">
                 <h3>Puma Clyde All-Pro</h3>
                 <p>Lightweight and durable, great for basketball or casual wear.</p>
-                <p><strong>Price: $95</strong></p>
+                <p><strong>Price: BDT 95</strong></p>
                 <button onclick="addToCart('Puma Clyde All-Pro', 95)">Add to Cart</button>
             </div>
             <div class="product">
                 <img src="images/product5.jpg" alt="New Balance 990v5">
                 <h3>New Balance 990v5</h3>
                 <p>The perfect blend of cushioning and stability for all-day comfort.</p>
-                <p><strong>Price: $175</strong></p>
+                <p><strong>Price: BDT 175</strong></p>
                 <button onclick="addToCart('New Balance 990v5', 175)">Add to Cart</button>
             </div>
             <div class="product">
                 <img src="images/product6.jpg" alt="Vans Old Skool">
                 <h3>Vans Old Skool</h3>
                 <p>Classic skate shoe with iconic side stripe design.</p>
-                <p><strong>Price: $70</strong></p>
+                <p><strong>Price: BDT 70</strong></p>
                 <button onclick="addToCart('Vans Old Skool', 70)">Add to Cart</button>
             </div>
-            </div>
+        </div>
 
     <div id="cart-modal" class="modal">
         <div class="modal-content">
@@ -84,40 +86,8 @@
             <h2>Your Shopping Cart</h2>
             <ul id="cart-items">
                 </ul>
-            <p><strong>Total: $<span id="cart-total">0.00</span></strong></p>
+            <p><strong>Total: BDT <span id="cart-total">0.00</span></strong></p>
             
             <button id="checkout-btn" class="checkout-button" onclick="showPaymentForm()">Proceed to Checkout</button>
             
-            <div id="payment-section" style="display:none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
-                <h3>Payment Details</h3>
-                <form id="payment-form">
-                    <label for="name">Name on Card:</label>
-                    <input type="text" id="name" required style="width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
-                    
-                    <label for="card">Card Number:</label>
-                    <input type="text" id="card" required maxlength="16" placeholder="XXXX XXXX XXXX XXXX" style="width: 95%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
-                    
-                    <div style="display: flex; gap: 10px;">
-                        <div>
-                            <label for="expiry">Expiry (MM/YY):</label>
-                            <input type="text" id="expiry" required maxlength="5" placeholder="MM/YY" style="padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; width: 80%;">
-                        </div>
-                        <div>
-                            <label for="cvv">CVV:</label>
-                            <input type="text" id="cvv" required maxlength="3" placeholder="CVV" style="padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; width: 80%;">
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="checkout-button" style="background-color: #28a745;">Pay Now</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; Rookie Shoes 2025</p>
-    </footer>
-    
-    <script src="script.js"></script>
-</body>
-</html>
+            <div id="payment-section" style="display:none; margin-top: 20px;
