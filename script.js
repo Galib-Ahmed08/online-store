@@ -14,6 +14,7 @@ function sayHi() {
 // --- SEARCH FILTER AND INITIAL SEARCH CHECK ---
 
 function filterProducts() {
+    // Get the input from the product search bar (which is now in the nav on products.html)
     const input = document.getElementById('product-search');
     // Exit if not on products page or input doesn't exist
     if (!input) return; 
