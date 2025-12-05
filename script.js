@@ -11,36 +11,31 @@ function sayHi() {
     alert('Thank you for visiting!');
 }
 
-// --- NEW SEARCH FILTER FUNCTION ---
+// --- Search Filter Function (Unchanged) ---
 
 function filterProducts() {
     const input = document.getElementById('product-search');
-    // Convert input text to uppercase for case-insensitive search
     const filter = input.value.toUpperCase(); 
-    // Get all product divs in the grid
     const productGrid = document.getElementById('product-list');
     const products = productGrid.getElementsByClassName('product'); 
 
-    // Loop through all product cards
     for (let i = 0; i < products.length; i++) {
-        // Get the product name (h3 element)
         const productName = products[i].querySelector('h3'); 
         
         if (productName) {
             const txtValue = productName.textContent || productName.innerText;
             
-            // Check if the product name includes the search text
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                products[i].style.display = ""; // Show product
+                products[i].style.display = ""; 
             } else {
-                products[i].style.display = "none"; // Hide product
+                products[i].style.display = "none"; 
             }
         }       
     }
 }
 
 
-// --- Existing Cart Logic Functions (Unchanged) ---
+// --- Cart Logic Functions ---
 
 function updateCartCount() {
     const cartCountElement = document.getElementById('cart-count');
@@ -56,7 +51,8 @@ function addToCart(productName, price) {
         id: Date.now() 
     };
     cart.push(product);
-    alert(productName + " has been added to your cart for $" + price + ".");
+    // ALERT MESSAGE UPDATED
+    alert(productName + " has been added to your cart for BDT " + price + ".");
     updateCartCount();
 }
 
@@ -92,8 +88,9 @@ function renderCart() {
         } else {
             cart.forEach(item => {
                 const listItem = document.createElement('li');
+                // LIST ITEM DISPLAY UPDATED
                 listItem.innerHTML = `
-                    <span>${item.name} - $${item.price.toFixed(2)}</span>
+                    <span>${item.name} - BDT ${item.price.toFixed(2)}</span>
                     <button class="remove-button" onclick="removeFromCart(${item.id})">Remove</button>
                 `;
                 cartItemsList.appendChild(listItem);
@@ -103,6 +100,7 @@ function renderCart() {
     }
 
     if (cartTotalElement) {
+        // TOTAL DISPLAY UPDATED
         cartTotalElement.textContent = total.toFixed(2);
     }
 }
@@ -158,7 +156,8 @@ function processPayment(event) {
         return;
     }
     
-    alert(`Payment successful! Your total of $${totalAmount} has been processed. Your order is confirmed!`);
+    // FINAL ALERT MESSAGE UPDATED
+    alert(`Payment successful! Your total of BDT ${totalAmount} has been processed. Your order is confirmed!`);
     
     cart = [];
     updateCartCount();
