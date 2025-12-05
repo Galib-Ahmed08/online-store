@@ -9,17 +9,29 @@ body {
 header {
     background-color: #000000;
     padding: 15px;
-    text-align: center;
+    /* Center the navigation content */
+    display: flex;
+    justify-content: center;
+}
+
+/* Updated Nav/UL Styles for Search Bar placement */
+nav {
+    width: 90%; /* Control the width of the nav bar */
+    max-width: 1200px; /* Max width for large screens */
 }
 
 nav ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* Vertically align items */
+    justify-content: flex-start; /* Start items from the left */
 }
 
 nav ul li {
     display: inline;
-    margin: 0 15px;
+    margin-right: 15px; /* Spacing between nav links */
 }
 
 nav ul li a {
@@ -33,6 +45,31 @@ nav ul li a:hover {
     background-color: #555;
     border-radius: 5px;
 }
+
+/* Styles for the Search Form in the Nav Bar */
+.nav-search-form {
+    margin-left: auto; /* Pushes the search form to the far right */
+}
+
+.nav-search-form input[type="text"] {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    margin-right: 5px;
+}
+
+.nav-search-form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* --- Rest of the CSS remains the same --- */
 
 .home-container {
     display: flex;
@@ -71,7 +108,7 @@ nav ul li a:hover {
 
 .product-grid {
     display: grid;
-    /* Changed to 3 columns for the extra products */
+    /* 3 columns for products */
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
@@ -82,12 +119,11 @@ nav ul li a:hover {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Center product content */
+    text-align: center; 
 }
 
 .product img {
     width: 100%;
-    /* Added a fixed height to product images for uniform grid */
     height: 200px; 
     object-fit: cover; 
     border-radius: 10px;
@@ -134,24 +170,24 @@ footer {
 
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
 }
 
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 10% auto; /* 10% from the top and centered */
+    margin: 10% auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%; 
     max-width: 600px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -191,7 +227,7 @@ footer {
 }
 
 .remove-button {
-    background-color: #dc3545; /* Red for removal */
+    background-color: #dc3545; 
     padding: 5px 10px;
     font-size: 14px;
 }
