@@ -13,6 +13,17 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="products.html">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                
+                <form action="products.html" method="GET" class="nav-search-form">
+                    <input 
+                        type="text" 
+                        id="home-search" 
+                        name="query" 
+                        placeholder="Search products..." 
+                        required
+                    >
+                    <button type="submit">Search</button>
+                </form>
             </ul>
         </nav>
     </header>
@@ -21,18 +32,6 @@
         <div>
             <h1>Welcome to Rookie Shoes</h1>
             <p>Find the best products here!</p>
-            
-            <form action="products.html" method="GET" style="margin-top: 20px; margin-bottom: 20px;">
-                <input 
-                    type="text" 
-                    id="home-search" 
-                    name="query" 
-                    placeholder="Search for Adidas, Nike, etc." 
-                    required
-                    style="padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 5px; margin-right: 10px;"
-                >
-                <button type="submit">Search</button>
-            </form>
             
             <button onclick="showMessage()">Click Me</button>
         </div>
